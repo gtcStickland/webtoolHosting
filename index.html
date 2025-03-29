@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星辰导航 - 您的上网起点</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --success: #4cc9f0;
+            --warning: #f72585;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', system-ui, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 2rem;
+            background-attachment: fixed;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .logo i {
+            font-size: 2.2rem;
+            color: var(--primary);
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .subtitle {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .search-box {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            position: relative;
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            outline: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .search-box input:focus {
+            box-shadow: 0 4px 20px rgba(67, 97, 238, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .search-box i {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+            max-width: 1300px;
+            margin: 0 auto;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .category {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .category-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .category:nth-child(1) .category-icon {
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 100%);
+        }
+        .category:nth-child(2) .category-icon {
+            background: linear-gradient(45deg, #a18cd1 0%, #fbc2eb 100%);
+        }
+        .category:nth-child(3) .category-icon {
+            background: linear-gradient(45deg, #ffc3a0 0%, #ffafbd 100%);
+        }
+        .category:nth-child(4) .category-icon {
+            background: linear-gradient(45deg, #a1c4fd 0%, #c2e9fb 100%);
+        }
+        .category:nth-child(5) .category-icon {
+            background: linear-gradient(45deg, #84fab0 0%, #8fd3f4 100%);
+        }
+        .category:nth-child(6) .category-icon {
+            background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 100%);
+        }
+        
+        .category h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .links a {
+            color: var(--gray);
+            text-decoration: none;
+            padding: 0.6rem 0.8rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+        }
+        
+        .links a:hover {
+            color: var(--primary);
+            background: rgba(67, 97, 238, 0.08);
+            transform: translateX(3px);
+        }
+        
+        .links a i {
+            width: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+            animation: fadeIn 1.2s ease-out;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 1rem;
+            }
+            
+            .category {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-compass"></i>
+        </div>
+        <h1>星辰导航</h1>
+        <p class="subtitle">精心挑选的优质网站集合，为您提供高效的上网体验</p>
+    </header>
+    
+    <div class="search-box">
+        <input type="text" placeholder="搜索网站、工具或资源...">
+        <i class="fas fa-search"></i>
+    </div>
+    
+    <div class="container">
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h2>搜索引擎</h2>
+            </div>
+            <div class="links">
+                <a href="https://www.baidu.com" target="_blank"><i class="fas fa-arrow-right"></i>百度</a>
+                <a href="https://www.google.com" target="_blank"><i class="fas fa-arrow-right"></i>Google</a>
+                <a href="https://www.bing.com" target="_blank"><i class="fas fa-arrow-right"></i>Bing</a>
+                <a href="https://www.sogou.com" target="_blank"><i class="fas fa-arrow-right"></i>搜狗</a>
+                <a href="https://mijisou.com" target="_blank"><i class="fas fa-arrow-right"></i>秘迹搜索</a>
+            </div>
+        </div>
+        
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h2>社交网络</h2>
+            </div>
+            <div class="links">
+                <a href="https://www.weibo.com" target="_blank"><i class="fas fa-arrow-right"></i>微博</a>
+                <a href="https://www.zhihu.com" target="_blank"><i class="fas fa-arrow-right"></i>知乎</a>
+                <a href="https://www.douban.com" target="_blank"><i class="fas fa-arrow-right"></i>豆瓣</a>
+                <a href="https://www.bilibili.com" target="_blank"><i class="fas fa-arrow-right"></i>哔哩哔哩</a>
+                <a href="https://www.xiaohongshu.com" target="_blank"><i class="fas fa-arrow-right"></i>小红书</a>
+            </div>
+        </div>
+        
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2>学习资源</h2>
+            </div>
+            <div class="links">
+                <a href="https://www.icourse163.org" target="_blank"><i class="fas fa-arrow-right"></i>中国大学MOOC</a>
+                <a href="https://www.coursera.org" target="_blank"><i class="fas fa-arrow-right"></i>Coursera</a>
+                <a href="https://www.edx.org" target="_blank"><i class="fas fa-arrow-right"></i>edX</a>
+                <a href="https://www.khanacademy.org" target="_blank"><i class="fas fa-arrow-right"></i>可汗学院</a>
+                <a href="https://www.udemy.com" target="_blank"><i class="fas fa-arrow-right"></i>Udemy</a>
+            </div>
+        </div>
+        
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h2>实用工具</h2>
+            </div>
+            <div class="links">
+                <a href="https://www.processon.com" target="_blank"><i class="fas fa-arrow-right"></i>ProcessOn</a>
+                <a href="https://www.canva.cn" target="_blank"><i class="fas fa-arrow-right"></i>Canva</a>
+                <a href="https://www.remove.bg" target="_blank"><i class="fas fa-arrow-right"></i>Remove.bg</a>
+                <a href="https://smallpdf.com" target="_blank"><i class="fas fa-arrow-right"></i>Smallpdf</a>
+                <a href="https://www.iloveimg.com" target="_blank"><i class="fas fa-arrow-right"></i>iLoveIMG</a>
+            </div>
+        </div>
+        
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h2>编程开发</h2>
+            </div>
+            <div class="links">
+                <a href="https://github.com" target="_blank"><i class="fas fa-arrow-right"></i>GitHub</a>
+                <a href="https://stackoverflow.com" target="_blank"><i class="fas fa-arrow-right"></i>Stack Overflow</a>
+                <a href="https://developer.mozilla.org" target="_blank"><i class="fas fa-arrow-right"></i>MDN Web Docs</a>
+                <a href="https://www.runoob.com" target="_blank"><i class="fas fa-arrow-right"></i>菜鸟教程</a>
+                <a href="https://leetcode.cn" target="_blank"><i class="fas fa-arrow-right"></i>LeetCode</a>
+            </div>
+        </div>
+        
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon">
+                    <i class="fas fa-film"></i>
+                </div>
+                <h2>影音娱乐</h2>
+            </div>
+            <div class="links">
+                <a href="https://www.youtube.com" target="_blank"><i class="fas fa-arrow-right"></i>YouTube</a>
+                <a href="https://www.youku.com" target="_blank"><i class="fas fa-arrow-right"></i>优酷</a>
+                <a href="https://www.iqiyi.com" target="_blank"><i class="fas fa-arrow-right"></i>爱奇艺</a>
+                <a href="https://www.netflix.com" target="_blank"><i class="fas fa-arrow-right"></i>Netflix</a>
+                <a href="https://www.spotify.com" target="_blank"><i class="fas fa-arrow-right"></i>Spotify</a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-links">
+            <a href="#">关于我们</a>
+            <a href="#">网站地图</a>
+            <a href="#">联系方式</a>
+            <a href="#">隐私政策</a>
+        </div>
+        <p>© 2023 星辰导航 | 让上网更高效 | 每日更新优质资源</p>
+    </footer>
+</body>
+</html>
